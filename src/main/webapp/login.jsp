@@ -72,27 +72,54 @@
 </div>
 </body>
 <script type="text/javascript">
+$(function(){        
+        $("#loginSubmit").validate({
+            /* debug:true, */
+            rules:{
+                username:{
+                    required: true,
+                    email: true
+                },
+                password:{
+                    required:true
+                }
+            },
+            messages:{
+                username:{
+                    required:"用户名不能为空",
+                    email:"请输入正确的邮箱格式！"
+                },
+                password:"密码不能为空！"
+            }
+        })
+    })
+$(".btn-link").click(function(){
+    alert("sss...");
+    location.href="index.html";
+})
 $("#check-login").click(function(){
-	var formData = new FormData(document.getElementById("loginSubmit"));
-	$.ajax({
-		url:"${request.getContextPath()}checkLogin.do",
-		data:formData,
-		processData:false,
-		contentType:false,
-		type:"post",
-		success:function(data){
-			if(data.success){
-				window.location.href="/index.do";
-			}else {
-				$("#error-info").text(data.msg);
-				$("#error-info").attr("class","show");
-				$("#error-info").fadeOut(3000,function(){
-					$("#error-info").attr("class","hidden");
-				});
-			}
-			
-		}
-	})
+    var valid = $("#loginSubmit").valid();
+    if(valid){
+        var formData = new FormData(document.getElementById("loginSubmit"));
+        $.ajax({
+            url:"${request.getContextPath()}checkLogin.do",
+            data:formData,
+            processData:false,
+            contentType:false,
+            type:"post",
+            success:function(data){
+                if(data.success){
+                    window.location.href="/index.do";
+                }else {
+                    $("#error-info").text(data.msg);
+                    $("#error-info").attr("class","show");
+                    $("#error-info").fadeOut(3000,function(){
+                        $("#error-info").attr("class","hidden");
+                    });
+                }
+            }
+        })#
+    }
 })
 </script>
 </html>
