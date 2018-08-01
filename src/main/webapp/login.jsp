@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/static/css/bootstrap-theme.css" />
 <script src="<%=request.getContextPath() %>/static/javascript/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/static/javascript/bootstrap.min.js"></script>
+<script src="<%=request.getContextPath() %>/static/javascript/jquery.validate.js"></script>
 <style type="text/css">
 .login_submit{
 	width: 400px;
@@ -77,8 +78,7 @@ $(function(){
             /* debug:true, */
             rules:{
                 username:{
-                    required: true,
-                    email: true
+                    required: true
                 },
                 password:{
                     required:true
@@ -109,7 +109,7 @@ $("#check-login").click(function(){
             type:"post",
             success:function(data){
                 if(data.success){
-                    window.location.href="/index.do";
+                    window.location.href="index.do";
                 }else {
                     $("#error-info").text(data.msg);
                     $("#error-info").attr("class","show");
@@ -118,7 +118,7 @@ $("#check-login").click(function(){
                     });
                 }
             }
-        })#
+        })
     }
 })
 </script>
