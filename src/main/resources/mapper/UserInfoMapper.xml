@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caodaxing.dao.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.caodaxing.entity.UserInfo">
+    <id column="INFO_ID" jdbcType="INTEGER" property="infoId" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="USER_AGE" jdbcType="INTEGER" property="userAge" />
+    <result column="USER_GANDER" jdbcType="INTEGER" property="userGander" />
+    <result column="USER_ADDRESS" jdbcType="VARCHAR" property="userAddress" />
+    <result column="USER_QQ" jdbcType="VARCHAR" property="userQq" />
+    <result column="USER_WECHAT" jdbcType="VARCHAR" property="userWechat" />
+    <result column="USER_MOBILE" jdbcType="VARCHAR" property="userMobile" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    INFO_ID, USER_NAME, USER_AGE, USER_GANDER, USER_ADDRESS, USER_QQ, USER_WECHAT, USER_MOBILE
+  </sql>
+  <select id="selectByExample" parameterType="com.caodaxing.entity.UserInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where INFO_ID = #{infoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_info
+    where INFO_ID = #{infoId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caodaxing.entity.UserInfoExample">
+    delete from user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caodaxing.entity.UserInfo">
+    insert into user_info (INFO_ID, USER_NAME, USER_AGE, 
+      USER_GANDER, USER_ADDRESS, USER_QQ, 
+      USER_WECHAT, USER_MOBILE)
+    values (#{infoId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userAge,jdbcType=INTEGER}, 
+      #{userGander,jdbcType=INTEGER}, #{userAddress,jdbcType=VARCHAR}, #{userQq,jdbcType=VARCHAR}, 
+      #{userWechat,jdbcType=VARCHAR}, #{userMobile,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.caodaxing.entity.UserInfo">
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="infoId != null">
+        INFO_ID,
+      </if>
+      <if test="userName != null">
+        USER_NAME,
+      </if>
+      <if test="userAge != null">
+        USER_AGE,
+      </if>
+      <if test="userGander != null">
+        USER_GANDER,
+      </if>
+      <if test="userAddress != null">
+        USER_ADDRESS,
+      </if>
+      <if test="userQq != null">
+        USER_QQ,
+      </if>
+      <if test="userWechat != null">
+        USER_WECHAT,
+      </if>
+      <if test="userMobile != null">
+        USER_MOBILE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="infoId != null">
+        #{infoId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAge != null">
+        #{userAge,jdbcType=INTEGER},
+      </if>
+      <if test="userGander != null">
+        #{userGander,jdbcType=INTEGER},
+      </if>
+      <if test="userAddress != null">
+        #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userQq != null">
+        #{userQq,jdbcType=VARCHAR},
+      </if>
+      <if test="userWechat != null">
+        #{userWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null">
+        #{userMobile,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caodaxing.entity.UserInfoExample" resultType="java.lang.Long">
+    select count(*) from user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user_info
+    <set>
+      <if test="record.infoId != null">
+        INFO_ID = #{record.infoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userName != null">
+        USER_NAME = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userAge != null">
+        USER_AGE = #{record.userAge,jdbcType=INTEGER},
+      </if>
+      <if test="record.userGander != null">
+        USER_GANDER = #{record.userGander,jdbcType=INTEGER},
+      </if>
+      <if test="record.userAddress != null">
+        USER_ADDRESS = #{record.userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userQq != null">
+        USER_QQ = #{record.userQq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userWechat != null">
+        USER_WECHAT = #{record.userWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userMobile != null">
+        USER_MOBILE = #{record.userMobile,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user_info
+    set INFO_ID = #{record.infoId,jdbcType=INTEGER},
+      USER_NAME = #{record.userName,jdbcType=VARCHAR},
+      USER_AGE = #{record.userAge,jdbcType=INTEGER},
+      USER_GANDER = #{record.userGander,jdbcType=INTEGER},
+      USER_ADDRESS = #{record.userAddress,jdbcType=VARCHAR},
+      USER_QQ = #{record.userQq,jdbcType=VARCHAR},
+      USER_WECHAT = #{record.userWechat,jdbcType=VARCHAR},
+      USER_MOBILE = #{record.userMobile,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caodaxing.entity.UserInfo">
+    update user_info
+    <set>
+      <if test="userName != null">
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAge != null">
+        USER_AGE = #{userAge,jdbcType=INTEGER},
+      </if>
+      <if test="userGander != null">
+        USER_GANDER = #{userGander,jdbcType=INTEGER},
+      </if>
+      <if test="userAddress != null">
+        USER_ADDRESS = #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userQq != null">
+        USER_QQ = #{userQq,jdbcType=VARCHAR},
+      </if>
+      <if test="userWechat != null">
+        USER_WECHAT = #{userWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null">
+        USER_MOBILE = #{userMobile,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where INFO_ID = #{infoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caodaxing.entity.UserInfo">
+    update user_info
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      USER_AGE = #{userAge,jdbcType=INTEGER},
+      USER_GANDER = #{userGander,jdbcType=INTEGER},
+      USER_ADDRESS = #{userAddress,jdbcType=VARCHAR},
+      USER_QQ = #{userQq,jdbcType=VARCHAR},
+      USER_WECHAT = #{userWechat,jdbcType=VARCHAR},
+      USER_MOBILE = #{userMobile,jdbcType=VARCHAR}
+    where INFO_ID = #{infoId,jdbcType=INTEGER}
+  </update>
+</mapper>
