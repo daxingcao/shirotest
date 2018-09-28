@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.caodaxing.core.annotation.LogOut;
 import com.caodaxing.dao.LoginUserMapper;
 import com.caodaxing.entity.LoginUser;
 import com.caodaxing.entity.LoginUserExample;
@@ -37,6 +38,7 @@ public class LoginUserServiceImpl implements LoginUserService {
 	}
 
 	@Override
+	@LogOut("查询登录用户信息开始")
 	public LoginUser selectByPrimaryKey(Long id) {
 		return loginUserMapper.selectByPrimaryKey(id);
 	}
