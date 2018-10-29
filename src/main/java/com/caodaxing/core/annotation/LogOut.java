@@ -11,6 +11,14 @@ import java.lang.annotation.Target;
 @Documented
 public @interface LogOut {
 	
-	String value();
+	String value() default "";
+	
+	/**
+	 * This method is used to set whether or not to save the log, 
+	 * and when the value is set to true, the log is saved to the database, 
+	 * which defaults to false
+	 * @return
+	 */
+	boolean save() default false;
 
 }

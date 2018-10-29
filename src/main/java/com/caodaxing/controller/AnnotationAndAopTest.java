@@ -13,7 +13,7 @@ public class AnnotationAndAopTest {
 	@Autowired
 	private LoginUserService loginUserService;
 	
-	@LogOut("测试日志输出自定义注解!")
+	@LogOut(value="测试日志输出自定义注解!",save=true)
 	@RequestMapping("/annotation/test1")
 	public void logOutAnnotationTest(String name,Long loginId) {
 		loginUserService.selectByPrimaryKey(loginId);

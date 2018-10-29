@@ -24,7 +24,9 @@ public class LogOutAdvice {
 			return jsonString;
 		}).toArray(String[]::new);
 		System.out.println(logOut.value());
-		
+		if(logOut.save()) {
+			System.out.println("保存到数据库中...");
+		}
 	}
 
 }
