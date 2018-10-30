@@ -19,7 +19,8 @@
    	<mvc:annotation-driven />
 	<!-- 打开静态资源，保证js,css等不被拦截  -->
 	<mvc:default-servlet-handler/>
-	<!-- 打开aop自动注解 -->
+	<!-- 打开aop自动注解。若不加,则aop扫描不到在springMVC上文的类,spring配置文件同理,
+		   因为springMVC和spring的applicationContext并不是一个 -->
 	<aop:aspectj-autoproxy />
     
     <!-- 视图解析器 -->   

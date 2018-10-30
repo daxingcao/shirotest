@@ -1,5 +1,8 @@
 package com.caodaxing.controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,6 +15,7 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.ClusterCommandExecutor.MulitNodeResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,6 +51,23 @@ public class ExcelController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@PostMapping("/upload/file")
+	@ResponseBody
+	public Map<String, Object> uploadFile(HttpServletRequest request,MultipartFile myFile) {
+		String contextPath = request.getServletContext().getRealPath("/excel");
+		File file = new File(contextPath,myFile.getOriginalFilename());
+		if(!file.getParentFile().exists()) {
+			file.getParentFile().mkdirs();
+		}
+		try {
+			myFile.transferTo(file);
+			return MessageUtil.successMessage("上传成功!");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return MessageUtil.errorMessage("上传失败!");
 	}
 	
 	@PostMapping("/upload/userexcel")
